@@ -1,0 +1,49 @@
+﻿#2016年11月21日19:34:01
+1、建立基本maven框架
+spring4+mvc+mybatis3+freemarker+druid数据源+一些通用的包
+
+#2016年11月29日14:10:16
+1、修改mybatis版本为3.4.1
+2、MessageSourceHelper(properties文件加载及获取)
+3、SqlPage 通用分页(暂时只支持Mysql)
+
+#2016年12月13日18:51:04
+1、添加SpringSecurity
+2、进行初步权限使用DEMO
+
+#2016年12月15日11:21:21
+1、添加json包 jackson-2.8.5
+2、添加权限初始化sql文件 ->doc/sql/shiro.sql
+3、添加js库 jquery-1.11.3 jeasyui-1.5
+4、完成简单登录验证（密码未加密）
+
+#2016年12月23日11:40:29
+1、①添加activeMQ-5.11.3 以及xbean-spring-4.5
+②暂时不去考虑5.12以上版本的整合，整合会有出错，有待更新
+③注意slf4j日志包冲突，已注释掉对应的依赖
+2、配置springmvc-jms，以及简单的测试DEMO(TestController)
+
+#2017年3月28日15:23:26
+1、POI加入并简单封装HSSFUtils及ExcelView（需要后期完善）
+2、SpringTask测试 添加springmvc-task.xml配置文件
+
+#2017年4月1日16:54:53
+1、去除mybatis配置及其pom配置及其相关代码（使用jdbcTemplate）
+
+#2017年4月18日11:24:53
+1、更新MessageSourceHelper，从配置文件变成注解，及功能改变
+2、添加、更新 BaseJdbcDaoImpl
+
+#2017年6月20日14:55:26
+1、更新添加mysql驱动6.0.6，配置更改请查看db.properties
+2、其他三方jar更新
+
+#2017年6月28日16:48:50
+1、更新easyui使用以及扩展js->jquery.easyui.extend.js
+2、添加使用Redis缓存(被注释，先使用ehCache)
+
+#2017年12月26日16:46:05
+1、更新spring版本至4.3.13，以及jackson等小版本更新
+2、pom 添加JDK 指定编译等级 1.8
+3、关闭jms mq等配置 及注释相关测试类
+4、解决4.2-》4.3 post请求数据 json数据乱码问题（直接返回的json 字符串形式）
