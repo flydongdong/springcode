@@ -1,0 +1,32 @@
+[{
+  "id" : 1,
+  "text" : "用户管理",
+  "iconCls" : "icon-man",
+  "state" : "closed",
+  "children" : [
+    {
+      "id" : 11,
+      "text" : "后台用户",
+      "url" : "/admin"
+    },{
+      "id" : 12,
+      "text" : "前台用户",
+      "url" : "http://www.baidu.com"
+    }]
+},{
+  "id": 2,
+  "text" : "人物管理",
+  "state" : "closed",
+  "children" :[
+    {
+      "id" : 21,
+      "text" : "普通人物管理",
+      "url" : "/admin/game/person/personManage"
+    }
+  ]
+},{
+  "id" : 3,
+  "text" : "系统管理",
+  "iconCls" : "icon-tip",
+  "state" : "closed"
+}]

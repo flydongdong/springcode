@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+	<!-- 最重要:::如果放在spring-context.xml中，这里的aop设置将不会生效 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>	
+    <!-- 指定扫描种类  -->
+   <context:component-scan base-package="com.fly.dd.mycode" use-default-filters="false">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+    <!-- 也可以扫描controller、service、...
+                        这里让扫描controller，指定controller的包
+     -->
+	<!-- <context:component-scan base-package="com.fly.dd.ssm.controller,com.fly.dd.ssm.demo"></context:component-scan> -->
+
+    <!-- 自定义视图解析器 -->
+
+
+
+    <!-- 配置视图解析器 -->
+    <!-- JSP  -->
+    <!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/views/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean> -->
+
+
+    <!-- FreeMarker -->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="prefix" value="/pages/"></property>
+        <property name="suffix" value=".ftl"></property>
+        <property name="contentType" value="text/html;charset=utf-8"></property>
+        <property name="viewClass">
+            <!-- <value>org.springframework.web.servlet.view.freemarker.FreeMarkerView</value> -->
+            <!-- 使用自定义的视图 -->
+            <value>com.fly.dd.mycode.common.view.MyFreemarkerView</value> 
+        </property>
+        <property name="cache" value="false" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <!-- <property name="order" value="0"></property> -->
+        <!-- 上下文，这里配置之后，fkt文件中可以使用${rc.getContextPath()} 来获取文件上下文，类似jsp的request.getContextPath() -->
+        <property name="requestContextAttribute" value="rc"></property>
+    </bean>
+    
+    <!-- 这里定义freemarker.properties文件的加载，和后面的对应。 -->
+    <!-- 使用资源文件  -->
+    <!-- <bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+         <property name="location" value="classpath:freemarker.properties"/>  
+    </bean> -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="templateLoaderPath" value="/"/> <!-- 模板加载路径 -->
+        <!-- <property name="freemarkerSettings" ref="freemarkerConfiguration"/>   -->
+    </bean>
+    
+    
+    <!-- 静态资源的引用  -->
+    <mvc:resources location="/static/js/" mapping="/static/js/**"></mvc:resources>
+    <mvc:resources location="/pages/" mapping="/pages/**"></mvc:resources>
+    <mvc:resources location="/static/img/" mapping="/static/img/**"></mvc:resources>
+    <mvc:resources location="/static/css/" mapping="/static/css/**"></mvc:resources>
+    <mvc:resources location="/static/json/" mapping="/static/json/**"></mvc:resources>
+    <mvc:resources location="/test/" mapping="/test/**"></mvc:resources>
+    <!-- <mvc:default-servlet-handler/> -->
+    <mvc:annotation-driven >
+        <mvc:message-converters>
+            <!-- 解决@ResponseBody注解直接返回字符串时乱码 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>*/*;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    
+   <!-- 配置自定义请求映射解析适配器 -->
+   <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="synchronizeOnSession" value="true"/>
+        <property name="customArgumentResolvers">
+            <list>
+                <bean class="com.fly.dd.mycode.common.resolver.MyMethodArgumentsResolver"></bean>
+            </list>
+        </property>
+    </bean> -->
+
+</beans>
