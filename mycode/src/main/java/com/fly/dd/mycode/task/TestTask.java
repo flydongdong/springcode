@@ -21,5 +21,4 @@ public class TestTask {
     public void test2() {
         System.out.println(LocalDateTime.now() + "我每五分钟执行一次");
     }
-
 }
